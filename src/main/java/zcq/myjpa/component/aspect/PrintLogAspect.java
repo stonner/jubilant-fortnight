@@ -37,11 +37,11 @@ public class PrintLogAspect {
         Object target = joinPoint.getTarget();
         Object aThis = joinPoint.getThis();
         String name = joinPoint.getSignature().getName();
-        logger.debug("SendMsgAspect -->>"+name+"; class  "+joinPoint.getSignature().getDeclaringTypeName()+"--" + target+ "--"+aThis);
-        joinPoint.proceed();
-        logger.debug("SendMsgAspect --out");
-        List emptyList = new ArrayList<Bill>(2);
+        logger.debug("PrintLogAspect -->>"+name+"; class  "+joinPoint.getSignature().getDeclaringTypeName()+"--" + target+ "--"+aThis);
+        Object proceed = joinPoint.proceed();
+        logger.debug("PrintLogAspect --out");
+        List emptyList = (ArrayList<Bill>)proceed;
         emptyList.add(new Bill());
-        return emptyList;
+        return proceed;
     }
 }

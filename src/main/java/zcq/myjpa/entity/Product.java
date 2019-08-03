@@ -1,5 +1,6 @@
 package zcq.myjpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Product {
     private String name;
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "mj_bill_id")
+    @JsonIgnoreProperties(value = {"product"},ignoreUnknown = true)
     private Bill bill;
 
     public Long getId() {

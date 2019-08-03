@@ -41,12 +41,18 @@ public class BillService {
         bill.setCode("n9342");
         bill.setName("bility");
         bill.setType(type);
+        Product product = new Product();
+        product.setCode("lpe44");
+        product.setName("aa");
+        product.setType("666");
+        productRepository.save(product);
+        bill.setProduct(product);
         return billRepository.save(bill);
     }
 
     @SendMsg
-    public Product getProductById(String id) {
-        List<String> ids = new ArrayList<>();
+    public Product getProductById(Long id) {
+        List<Long> ids = new ArrayList<>();
         ids.add(id);
         List<Product> allById = productRepository.findAllById(ids);
         return allById.isEmpty()?null:allById.get(0);

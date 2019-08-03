@@ -16,7 +16,7 @@ import java.util.List;
  * @since JDK1.8
  */
 @Repository
-public interface BillRepository extends BaseRepository<Bill> {
+public interface BillRepository extends BaseRepository<Bill,Long> {
 
     @Query(value = "select * from mj_bill where id > ?2 and ?1 <> 'n9342'",nativeQuery = true)
     List<Bill> selectByCodeAndId(String code, String id);

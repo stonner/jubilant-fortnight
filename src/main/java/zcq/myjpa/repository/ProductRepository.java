@@ -13,6 +13,6 @@ import java.util.List;
  * @since JDK1.8
  */
 @Repository
-public interface ProductRepository extends BaseRepository<Product> {
+public interface ProductRepository extends BaseRepository<Product,Long> {
     Product findByCode(String code);
 }

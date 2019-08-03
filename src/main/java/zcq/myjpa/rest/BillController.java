@@ -28,7 +28,7 @@ public class BillController {
     }
 
     @RequestMapping("getProductById")
-    public ResponseObject getProductById(String id) {
+    public ResponseObject getProductById(Long id) {
         return ResponseObject.newOk("ok",billService.getProductById(id));
     }
 
@@ -43,7 +43,7 @@ public class BillController {
     }
 
     @RequestMapping("sendMsg")
-    public ResponseObject sendMsg(String id) {
-        return ResponseObject.newOk("ok",billService.sendMsg(id));
+    public ResponseObject sendMsg(String msg) {
+        return ResponseObject.newOk("ok",billService.sendMsg(msg));
     }
 }
