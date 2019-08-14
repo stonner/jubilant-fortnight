@@ -14,14 +14,17 @@ import java.util.Random;
  */
 public class TestMain {
     public static void main(String[] args) {
-        compareRunningTime(new Example1(),(int)Math.pow(10,7));
+        compareRunningTime(new Example1(),new int[]{1,2},(int)Math.pow(10,5));
     }
 
-    public static void compareRunningTime(Example example, int cycleNum) {
-        long time1 = getRunningTime(example, 1, cycleNum);
-        long time2 = getRunningTime(example, 2, cycleNum);
-        System.out.println("time1: "+time1+" ms");
-        System.out.println("time2: "+time2+" ms");
+    public static void compareRunningTime(Example example,int[] methodNos, int cycleNum) {
+        long[] times = new long[methodNos.length];
+        for (int i = 0; i < times.length; i++) {
+            times[i] = getRunningTime(example, i+1, cycleNum);
+        }
+        for (int i = 0; i < times.length; i++) {
+            System.out.println("time"+(i+1)+": "+times[i]+" ms");
+        }
     }
 
     public static long getRunningTime(Example example, int methodNum, int cycleNum) {
