@@ -5,6 +5,8 @@ import zcq.myjpa.examples.impl.Example1;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -14,7 +16,11 @@ import java.util.Random;
  */
 public class TestMain {
     public static void main(String[] args) {
-        compareRunningTime(new Example1(),new int[]{1,2},(int)Math.pow(10,5));
+        final List<String> strings = runAllMethods(new Example1(), (int) Math.pow(10, 6));
+        for (String string : strings) {
+            System.out.println(string);
+        }
+        //compareRunningTime(new Example1(),new int[]{1,2},(int)Math.pow(10,5));
     }
 
     public static void compareRunningTime(Example example,int[] methodNos, int cycleNum) {
@@ -47,5 +53,27 @@ public class TestMain {
         }
         long end = System.currentTimeMillis();
         return end-start;
+    }
+
+    public static List<String> runAllMethods(Example example, int cycleNum) {
+        final ArrayList<String> list = new ArrayList<>();
+        Class<? extends Example> clazz = example.getClass();
+        Method[] methods = clazz.getDeclaredMethods();
+        for (int i = 0; i < methods.length; i++) {
+            String name = methods[i].getName();
+            long start = System.currentTimeMillis();
+            for (int j=0;j<cycleNum;j++) {
+                try {
+                    methods[i].invoke(example);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+            long end = System.currentTimeMillis();
+            list.add("method \""+name+"\" used time: "+(end-start)+" ms");
+        }
+        return list;
     }
 }
