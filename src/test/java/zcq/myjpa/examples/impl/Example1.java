@@ -29,4 +29,13 @@ public class Example1 implements Example {
         }
         System.out.println(code);
     }
+
+    public void doing3() {
+        Random rd = new Random();
+        StringBuffer code = new StringBuffer();
+        for (int i=0;i<4;i++){
+            code.append(rd.nextInt(10));
+        }
+        System.out.println(code);
+    }
 }
