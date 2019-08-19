@@ -1,5 +1,6 @@
 package zcq.myjpa.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -97,6 +99,8 @@ public class HttpClientUtils {
             httpGet.setConfig(requestConfig);
             response = httpClient.execute(httpGet);// 执行请求
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                final HttpEntity entity = response.getEntity();
+                final InputStream content = entity.getContent();
                 body = parseResponse(response);
             }
         } catch (Exception e) {
@@ -123,7 +127,7 @@ public class HttpClientUtils {
         // 构造请求头
         Map<String, String> headers = new HashMap<>();
         // ---begin解决中文乱码问题
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        headers.put("Content-Type", "application/json");
         headers.put("Accept-Language", "zh-cn");
         headers.put("Accept-Encoding", "gzip, deflate");
         // ---end
@@ -225,5 +229,21 @@ public class HttpClientUtils {
         } catch (Exception e) {
             LOGGER.error("关闭连接出现异常", e);
         }
+    }
+
+    public String postPayload(String url, HashMap<String, String> params, int retryNum) {
+        // 构造请求发送实体
+
+        final StringEntity stringEntity = new StringEntity(JSON.toJSONString(params), "UTF-8");
+
+        // 构造请求头
+        Map<String, String> headers = new HashMap<>();
+        // ---begin解决中文乱码问题
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept-Language", "zh-cn");
+        headers.put("Accept-Encoding", "gzip, deflate");
+        // ---end
+        // 执行请求
+        return this.doPost(url, stringEntity, headers, retryNum);
     }
 }
