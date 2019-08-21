@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zcq.myjpa.bean.ResponseObject;
+import zcq.myjpa.exceptions.PermissionException;
 import zcq.myjpa.exceptions.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +33,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseObject handler (HttpServletRequest request, Exception e) {
         if (e instanceof ServiceException) {
-            return ResponseObject.newError(e.getMessage());
-        } else {
+            return ResponseObject.newError("服务异常"+e.getMessage());
+        } else if (e instanceof PermissionException) {
+            return ResponseObject.newError("权限异常"+e.getMessage());
+        } else{
             logger.error("error url: "+request.getRequestURL());
             logger.error(e.getMessage(),e);
             return ResponseObject.newError("系统异常");
@@ -52,4 +55,5 @@ public class GlobalExceptionHandler {
         logger.error("数据访问异常："+e.getMessage(),e);
         return ResponseObject.newError("dao异常");
     }
+
 }
