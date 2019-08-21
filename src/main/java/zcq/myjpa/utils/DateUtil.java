@@ -34,7 +34,7 @@ public class DateUtil {
         String datePattern = null;
         for (DateFormat df : DateFormat.values()) {
             if (dateStr.matches(df.getPattern())) {
-                datePattern = df.getPattern();
+                datePattern = df.getFormat();
             }
         }
         SimpleDateFormat sdf = DateFormatHolder.formatFor(datePattern);
