@@ -7,6 +7,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.poi.util.IOUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -26,7 +27,8 @@ import java.util.Hashtable;
 public class FileUtils {
 
     /**
-     *获取服务器文件 字节数组
+     * 获取服务器文件 字节数组
+     *
      * @param fileUrl 文件地址
      * @return
      */
@@ -76,6 +78,7 @@ public class FileUtils {
 
     /**
      * 获取服务器文件 base64流
+     *
      * @param fileUrl
      * @return
      */
@@ -85,12 +88,13 @@ public class FileUtils {
 
     /**
      * base64流转pdf图片
+     *
      * @param base64Content
      * @return
      * @throws Exception
      */
     public static BufferedImage pdfToImage(String base64Content) throws Exception {
-        byte [] b = new BASE64Decoder().decodeBuffer(base64Content);
+        byte[] b = new BASE64Decoder().decodeBuffer(base64Content);
         InputStream inputStream = new ByteArrayInputStream(b);
         PDDocument doc = PDDocument.load(inputStream);
         PDFRenderer renderer = new PDFRenderer(doc);
@@ -100,9 +104,9 @@ public class FileUtils {
     }
 
 
-
     /**
      * 生成二维码
+     *
      * @param content
      * @return
      * @throws Exception
@@ -131,7 +135,6 @@ public class FileUtils {
     }
 
     /**
-     *
      * @param image
      * @param resp
      */
@@ -142,4 +145,36 @@ public class FileUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 读取为字节
+     * @param fileUrl
+     * @return
+     * @throws Exception
+     */
+    public static byte[] fileToBytes(String fileUrl) throws Exception {
+        try {
+            URL url = new URL(fileUrl);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+            conn.connect();
+            int httpResult = conn.getResponseCode();
+            if (httpResult == 200) {
+                InputStream inputStream = conn.getInputStream();
+                final ByteArrayOutputStream output = new ByteArrayOutputStream();
+                IOUtils.copy(inputStream,output);
+                inputStream.close();
+                output.flush();
+                output.close();
+                return output.toByteArray();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

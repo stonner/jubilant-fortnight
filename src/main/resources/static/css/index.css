@@ -1,0 +1,96 @@
+
+
+table {
+	border-collapse: collapse;
+}
+
+#main {
+	width: 950px;
+	border: 1px solid;
+	margin: 0px auto;
+	padding-bottom: 10px;
+}
+
+.header {
+	overflow: hidden;
+}
+
+.header>div {
+	float: left;
+}
+
+.header>.left {
+	width: 11%;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+.header>.left>img {
+	width: 100px;
+	height: 100px;
+}
+
+.header>.right {
+	width: 88.4%;
+	position: relative;
+}
+
+.header>.right>.r-top {
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-size: 20px;
+	text-align: center;
+	line-height: 44px;
+	border-bottom: 1px solid;
+}
+
+.header>.right>.r-bottom {
+	line-height: 64px;
+	text-align: center;
+}
+
+.header>.right>.r-bottom>.bill {
+	font-family: 'Arial Negreta', 'Arial';
+	font-weight: 700;
+	font-style: normal;
+	font-size: 24px;
+}
+
+.header>.right>.r-bottom>.time {
+	font-family: 'Arial Normal', 'Arial';
+	font-weight: 400;
+	font-style: normal;
+	font-size: 13px;
+	padding-right: 10px;
+	position: absolute;
+	right: 0;
+}
+
+.base-info {
+	padding-left: 58px;
+	margin-top: 10px;
+}
+
+.base-info table {
+	width: 100%;
+}
+.base-info table tr {
+	height: 30px;
+}
+
+.title {
+	width: 281px;
+	margin-left: 20px;
+	border-bottom: 1px solid;
+	text-indent: 1rem;
+	line-height: 30px;
+}
+
+.quantity {
+	width: 910px;
+	margin: 10px auto;
+	text-align: center;
+}
+.quantity td {
+	padding: 5px;
+}

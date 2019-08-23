@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/normalize.css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	</head>
+	<body>
+		<div id="main">
+			<div class="header">
+				<div class="left">
+					<img src="../img/界面高压线.PNG">
+				</div>
+				<div class="right">
+					<table cellspacing="0" cellpadding="0" border="0">
+						<tr>
+							<td>受理网点</td>
+							<td>${hallName}</td>
+						</tr>
+						<tr>
+							<td>受理单号</td>
+							<td>${acceptanceCode}</td>
+						</tr>
+						<tr>
+							<td>办理时间</td>
+							<td>${endDate}</td>
+						</tr>
+						<tr>
+							<td>自助机编号</td>
+							<td>${machineCode}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h3>业务受理回执</h3>
+			<div class="base-info comm">
+				<h4>基本信息</h4>
+				<table border="0" cellspacing="0" cellpadding="0">
+					${info}
+				</table>
+			</div>
+			<div class="comm">
+				<h4>已具备材料</h4>
+				${inWork}
+			</div>
+			<div class="comm">
+				<h4>后续需准备材料(请补齐以下材料交予现场勘查人员)</h4>
+				${notInWork}
+			</div>
+			<div class="comm notice">
+				<h4>用户须知</h4>
+				<div>${notes}</div>
+			</div>
+			<div class="sign comm">
+				<div>
+					<span>客户签名</span>
+				</div>
+				<div class="sing-img">
+					${sign}
+				</div>
+				<div style="width: 71.5%;">
+					客户声明：本人提供的申请信息和资料真实准确，如有虚假错漏，愿意承担相应责任；${declare}
+				</div>
+			</div>
+			<div class="phone comm">
+				<h4>客户服务热线：</h4>
+				<span>82137777</span>
+			</div>
+			<div class="code">
+				<div class="left">
+					<img src="../img/code.PNG" >
+				</div>
+				<div class="right">
+					<div>受理单号：${acceptanceCode}</div>
+					<div>扫描二维码实时关注办理进度</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

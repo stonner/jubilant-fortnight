@@ -8,13 +8,10 @@ package zcq.myjpa.examples.impl;
  * ****************************************************************************
  */
 
-import com.sun.media.sound.SoftTuning;
 import org.springframework.util.LinkedMultiValueMap;
-import zcq.myjpa.bean.vo.CustomerVo;
 import zcq.myjpa.examples.Example;
+import zcq.myjpa.utils.FileUtils;
 
-import javax.sound.midi.Soundbank;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,6 +75,5 @@ public class Example3 implements Example {
     public void doing4() {
         final String noExist = CUSTOMERCODE_COMPANY_MAP.get("noExist");
         System.out.println(noExist);
-
     }
 }
