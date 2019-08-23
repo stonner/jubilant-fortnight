@@ -12,5 +12,5 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrintLog {
-    String desc();
+    String desc() default "";
 }
