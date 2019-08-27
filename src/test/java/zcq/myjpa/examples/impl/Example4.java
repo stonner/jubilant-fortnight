@@ -11,12 +11,7 @@ import zcq.myjpa.examples.Example;
 public class Example4 implements Example {
     private Bill billLocal = new Bill();
 
-    private ThreadLocal<Bill> billThreadLocal = new ThreadLocal<Bill>(){
-        @Override
-        protected Bill initialValue() {
-            return new Bill();
-        }
-    };
+    private ThreadLocal<Bill> billThreadLocal = ThreadLocal.withInitial(() -> new Bill());
 
     @Override
     public void doing1() {

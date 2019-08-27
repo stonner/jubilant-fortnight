@@ -68,4 +68,10 @@ public class Product {
     public void setBill(Bill bill) {
         this.bill = bill;
     }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(){}
 }

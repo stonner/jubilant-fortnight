@@ -3,6 +3,7 @@ package zcq.myjpa;
 import zcq.myjpa.examples.Example;
 import zcq.myjpa.examples.impl.Example1;
 import zcq.myjpa.examples.impl.Example4;
+import zcq.myjpa.examples.impl.Example5;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,7 +24,9 @@ public class TestThread {
     private static void runAll(Example example, int cycleNum) {
         Class<? extends Example> clazz = example.getClass();
         Method[] methods = clazz.getDeclaredMethods();
+
         for (Method method : methods) {
+            method.setAccessible(true);
             final String name = method.getName();
             new Thread(()->{
                 for (int j=0;j<cycleNum;j++) {
