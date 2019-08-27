@@ -1,7 +1,11 @@
 package zcq.myjpa.examples.impl;
 
+import org.junit.Test;
 import zcq.myjpa.entity.Product;
 import zcq.myjpa.examples.Example;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author zhengchuqin
@@ -30,5 +34,13 @@ public class Example5 implements Example {
             System.out.println("------------------2");
         }
         product.setName("s");
+    }
+
+    @Test
+    public void doing3() {
+        final List<Integer> integers = Arrays.asList(1, 2,7);
+        System.out.println(integers.get(1));
+        final boolean b = integers instanceof List;
+        System.out.println(b);
     }
 }
