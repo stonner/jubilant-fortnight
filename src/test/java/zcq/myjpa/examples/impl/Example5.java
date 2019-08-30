@@ -43,4 +43,20 @@ public class Example5 implements Example {
         final boolean b = integers instanceof List;
         System.out.println(b);
     }
+
+    @Test
+    public void doing4() {
+        final int i = '6' - '0';
+        System.out.println(i);
+    }
+
+    @Test
+    public void doing5() {
+        int i = 7;
+        i <<= 1;
+        System.out.println(i);
+        i |= 64;
+        System.out.println(i);
+
+    }
 }
