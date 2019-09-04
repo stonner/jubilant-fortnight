@@ -1,13 +1,19 @@
 package zcq.myjpa.examples.impl;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
+import org.springframework.context.annotation.Bean;
+import zcq.myjpa.entity.Bill;
 import zcq.myjpa.examples.Example;
 import zcq.myjpa.vo.ReceiptStageVo;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhengchuqin
@@ -92,4 +98,32 @@ public class Example6 implements Example {
         }
         //  700000000 太大
     }
+
+    @Test
+    public void doing3(){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type", "wechat");
+        map.put("name", "lucy");
+        Bill bill = new Bill();
+        try {
+            BeanUtils.populate(bill,map);
+            System.out.println(JSON.toJSONString(bill));
+            System.out.println(JSON.toJSONString(map));
+
+            Map<String, String> describe = BeanUtils.describe(bill);
+            System.out.println(JSON.toJSONString(describe));
+            System.out.println(JSON.toJSONString(bill));
+
+            Bill bill1 = new Bill();
+            BeanUtils.copyProperties(bill1,bill);
+            System.out.println(JSON.toJSONString(bill1));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
