@@ -10,22 +10,19 @@ package zcq.myjpa.examples.impl;
 
 import zcq.myjpa.examples.Example;
 
-import javax.sound.midi.Soundbank;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author zhengchuqin
  * @version 1.0
  * @since 2019/08/15
  */
-public class Exmaple2 implements Example {
+public class Example2 implements Example {
 
     public static void main(String[] args) {
-        new Exmaple2().doing1();
+        new Example2().doing1();
     }
 
     @Override
