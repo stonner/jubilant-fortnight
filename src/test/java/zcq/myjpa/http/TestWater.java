@@ -34,9 +34,9 @@ public class TestWater {
                 }
             }
         }
-        /*params.put("customercode", "1742080239");
-        params.put("billmonth", ""+201903);
-        System.out.println(post(url, params));*/
+        params.put("customercode", "1742080239");
+        params.put("billmonth", ""+201908);
+        System.out.println(post(url, params));
     }
 
     public static String post(String url,HashMap<String, String> params){
