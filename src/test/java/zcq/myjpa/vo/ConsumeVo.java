@@ -6,7 +6,7 @@
  * 复制、修改或发布本软件.
  * ****************************************************************************
  */
-package zcq.myjpa;
+package zcq.myjpa.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

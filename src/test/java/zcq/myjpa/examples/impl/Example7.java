@@ -3,7 +3,7 @@ package zcq.myjpa.examples.impl;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zcq.myjpa.BankMessageVo;
+import zcq.myjpa.vo.BankMessageVo;
 import zcq.myjpa.examples.Example;
 import zcq.myjpa.utils.FormatUtils;
 import zcq.myjpa.utils.LoUtils;

@@ -6,7 +6,7 @@
  * 复制、修改或发布本软件.
  * ****************************************************************************
  */
-package zcq.myjpa;
+package zcq.myjpa.vo;
 
 import org.apache.commons.lang3.StringUtils;
 import zcq.myjpa.utils.LoUtils;
