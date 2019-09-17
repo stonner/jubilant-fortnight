@@ -8,16 +8,21 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.poi.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * @author zhengchuqin
@@ -25,6 +30,8 @@ import java.util.Hashtable;
  * @since 2019/08/09
  */
 public class FileUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * 获取服务器文件 字节数组
@@ -77,32 +84,71 @@ public class FileUtils {
     }
 
     /**
-     * 获取服务器文件 base64流
+     * base64
      *
-     * @param fileUrl
+     * @param content
      * @return
      */
-    public static String fileToBase64(String fileUrl) {
-        return new BASE64Encoder().encode(getFile(fileUrl));
+    public static String base64Encode(byte[] content) {
+        return new BASE64Encoder().encode(content);
+    }
+
+    public static byte[] base64Decode(String base64Content) throws IOException {
+        return new BASE64Decoder().decodeBuffer(base64Content);
     }
 
     /**
-     * base64流转pdf图片
+     * 转图片
      *
-     * @param base64Content
+     * @param b
      * @return
      * @throws Exception
      */
-    public static BufferedImage pdfToImage(String base64Content) throws Exception {
-        byte[] b = new BASE64Decoder().decodeBuffer(base64Content);
+    public static BufferedImage pdfToImage(byte[] b) throws Exception {
         InputStream inputStream = new ByteArrayInputStream(b);
         PDDocument doc = PDDocument.load(inputStream);
-        PDFRenderer renderer = new PDFRenderer(doc);
-        BufferedImage imageToSave = renderer.renderImage(0, 2.0f);
+        PDFRenderer renderer = new PDFRenderer(doc);int numberOfPages = doc.getNumberOfPages();
+        logger.info("读取pdf（页数为{})，开始转为BufferedImage",numberOfPages);
+        long mill = System.currentTimeMillis();
+        BufferedImage bufferedImage = null;
+        if (numberOfPages == 1) {
+            bufferedImage = renderer.renderImage(0, 2.0f);
+        } else if (numberOfPages > 1) {
+            List<BufferedImage> imageToSaves = new ArrayList<>();
+            for (int i = 0; i < numberOfPages; i++) {
+                BufferedImage imageToSave = renderer.renderImage(i, 2.0f);
+                imageToSaves.add(imageToSave);
+            }
+            logger.info("开始拼接BufferedImage");
+            bufferedImage = concactBufferedImages(imageToSaves);
+            logger.info("拼接BufferedImage完成");
+        }
         inputStream.close();
-        return imageToSave;
+        doc.close();
+        logger.info("用时 {} ms",System.currentTimeMillis()-mill);
+        return bufferedImage;
     }
 
+    /**
+     * 拼接BufferedImage
+     * @param images
+     * @return
+     */
+    public static BufferedImage concactBufferedImages(List<BufferedImage> images) {
+        int heightTotal = 0;
+        for(int j = 0; j < images.size(); j++) {
+            heightTotal += images.get(j).getHeight();
+        }
+        int heightCurr = 0;
+        BufferedImage concatImage = new BufferedImage(images.get(0).getWidth(), heightTotal, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = concatImage.createGraphics();
+        for(int j = 0; j < images.size(); j++) {
+            g2d.drawImage(images.get(j), 0, heightCurr, null);
+            heightCurr += images.get(j).getHeight();
+        }
+        g2d.dispose();
+        return concatImage;
+    }
 
     /**
      * 生成二维码
@@ -135,6 +181,7 @@ public class FileUtils {
     }
 
     /**
+     * 输出图片
      * @param image
      * @param resp
      */
@@ -176,5 +223,6 @@ public class FileUtils {
             return null;
         }
     }
+
 
 }
