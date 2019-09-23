@@ -3,7 +3,6 @@ package zcq.myjpa.examples.impl;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
 import zcq.myjpa.entity.Bill;
 import zcq.myjpa.examples.Example;
 import zcq.myjpa.vo.ReceiptStageVo;
