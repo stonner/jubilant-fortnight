@@ -73,6 +73,8 @@ public class Example9 implements Example {
 
     @Override
     public void doing2() {
+        //EXECUTOR_POOL.execute(()-> {});
+        //EXECUTOR_POOL.submit();
 
     }
 }
