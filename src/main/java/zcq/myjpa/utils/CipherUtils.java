@@ -1,12 +1,4 @@
 package zcq.myjpa.utils;
-/**
- * ***************************************************************************
- * Copyright (C) 2017 ShenZhen ComTop Information Technology Co.,Ltd
- * All Rights Reserved.
- * 本软件为深圳康拓普开发研制。未经本公司正式书面同意，其他任何个人、团体不得使用、
- * 复制、修改或发布本软件.
- * ****************************************************************************
- */
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -26,6 +18,10 @@ public class CipherUtils {
     private final static String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
 
     private static final String HEXSTRING = "0123456789ABCDEF";
+
+    private enum CalculationType{
+        AND, OR, XOR, NON;
+    }
 
     public static String bytes2HexStr(byte[] bytes) {
         StringBuilder resultStrignBuilder = new StringBuilder();
@@ -52,6 +48,78 @@ public class CipherUtils {
         b0 = (byte) (b0 << 4);
         byte b1 = Byte.decode("0x" + src1);
         return (byte) (b0 | b1);
+    }
+
+    private static byte[] calculateBytes(byte[] src1, byte[] src2, CalculationType type) {
+        if (src1 == null || src2 == null) {
+            return null;
+        }
+        final int length = src1.length;
+        if (length == 0 || length != src2.length) {
+            return null;
+        }
+        final byte[] bytes = new byte[length];
+        switch (type) {
+            case OR:
+                for (int i = 0; i < length; i++) {
+                    bytes[i] = (byte) (src1[i] | src2[i]);
+                }
+                break;
+            case AND:
+                for (int i = 0; i < length; i++) {
+                    bytes[i] = (byte) (src1[i] & src2[i]);
+                }
+                break;
+            case XOR:
+                for (int i = 0; i < length; i++) {
+                    bytes[i] = (byte) (src1[i] ^ src2[i]);
+                }
+                break;
+            default:
+                break;
+        }
+        return bytes;
+    }
+
+    public static void main(String[] args) {
+        final byte[] bytes = "111111".getBytes();
+        final byte[] bytes1 = "381214".getBytes();
+        System.out.println((byte)0xFF);
+        System.out.print(" ");
+        System.out.print("    ");
+        System.out.print("  ");
+        System.out.print("    ");
+        System.out.print("0 ");
+        System.out.print("    ");
+        System.out.print("1 ");
+        System.out.print("    ");
+        System.out.print("~ ");
+        System.out.print("    ");
+        System.out.print("& ");
+        System.out.print("    ");
+        System.out.print("^ ");
+        System.out.print("    ");
+        System.out.print("| ");
+        System.out.println("    \n");
+        for (int i = 0; i < bytes.length; i++) {
+            System.out.print(((bytes[i] & 0xFF) ^ (bytes1[i] & 0xFF)));
+            System.out.print("    ");
+            System.out.print(bytes[i] ^ bytes1[i]);
+            System.out.print("    ");
+            System.out.print(bytes[i]);
+            System.out.print("    ");
+            System.out.print((bytes1[i]));
+            System.out.print("    ");
+            System.out.print(~ bytes1[i]);
+            System.out.print("    ");
+            System.out.print((bytes1[i] & 0xFF));
+            System.out.print("    ");
+            System.out.print((bytes1[i] ^ 0xFF));
+            System.out.print("    ");
+            System.out.print((bytes1[i] | 0xFF));
+            System.out.println("    ");
+        }
+
     }
 
 
