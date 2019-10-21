@@ -120,11 +120,10 @@
         </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/javax.comm/comm -->
-        <dependency>
-            <groupId>javax.comm</groupId>
-            <artifactId>comm</artifactId>
-            <scope>system</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>javax.comm</groupId>-->
+<!--            <artifactId>comm</artifactId>-->
+<!--        </dependency>-->
 
 
 

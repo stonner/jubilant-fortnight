@@ -17,10 +17,64 @@ public class CipherUtils {
 
     private final static String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
 
+    private final static String ALGORITHM = "DES";
+
     private static final String HEXSTRING = "0123456789ABCDEF";
+
+    private static final String[] binaryArray =
+            {"0000", "0001", "0010", "0011",
+                    "0100", "0101", "0110", "0111",
+                    "1000", "1001", "1010", "1011",
+                    "1100", "1101", "1110", "1111"};
 
     private enum CalculationType{
         AND, OR, XOR, NON;
+    }
+
+    public static String bytes2BinStr(byte[] bArray) {
+        String outStr = "";
+        int pos = 0;
+        for (byte b : bArray) {
+            //高四位
+            pos = (b & 0xF0) >> 4;
+            outStr += binaryArray[pos];
+            //低四位
+            pos = b & 0x0F;
+            outStr += binaryArray[pos];
+        }
+        return outStr;
+    }
+
+    public static byte[] binStr2Bytes(String bStr) {
+        if (bStr == null) {
+            return null;
+        }
+        int length = bStr.length();
+        if (length == 0) {
+            return null;
+        }
+        int i1 = length / 8;
+
+        int i2 = length % 8;
+        if (i2 > 0) {
+            i1++;
+            StringBuilder bStrBuilder = new StringBuilder(bStr);
+            for (int i = 0; i < 8 - i2; i++) {
+                bStrBuilder.insert(0, "0");
+            }
+            bStr = bStrBuilder.toString();
+        }
+        byte[] bytes = new byte[i1];
+
+        for (int i = 0; i < i1; i++) {
+            int num = 0;
+            for (int j = 8 * i; j < 8 * i + 8; j++) {
+                num <<= 1;
+                num |= (bStr.charAt(j) - '0');
+            }
+            bytes[i] = (byte) num;
+        }
+        return bytes;
     }
 
     public static String bytes2HexStr(byte[] bytes) {
@@ -81,7 +135,7 @@ public class CipherUtils {
         return bytes;
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         final byte[] bytes = "111111".getBytes();
         final byte[] bytes1 = "381214".getBytes();
         System.out.println((byte)0xFF);
@@ -120,6 +174,12 @@ public class CipherUtils {
             System.out.println("    ");
         }
 
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Integer.toHexString(122));
+
     }
 
 
@@ -135,7 +195,7 @@ public class CipherUtils {
         SecureRandom sr = new SecureRandom();
         try {
             DESKeySpec dks = new DESKeySpec(key);
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
             SecretKey securekey = keyFactory.generateSecret(dks);
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             cipher.init(mode, securekey, sr);
