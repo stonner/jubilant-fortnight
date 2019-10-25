@@ -179,6 +179,10 @@ public class CipherUtils {
 
     public static void main(String[] args) {
         System.out.println(Integer.toHexString(122));
+        String s = bytes2BinStr("111束带结发43￥#".getBytes());
+        System.out.println(s);
+        byte[] bytes = binStr2Bytes(s);
+        System.out.println(new String(bytes));
 
     }
 

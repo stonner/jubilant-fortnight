@@ -1,19 +1,17 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 
 import zcq.myjpa.entity.Bill;
-import zcq.myjpa.examples.Example;
 
 /**
  * @author zhengchuqin
  * @version 1.0
  * @since 2019/08/27
  */
-public class Example4 implements Example {
+public class Example4 implements  Example{
     private Bill billLocal = new Bill();
 
     private ThreadLocal<Bill> billThreadLocal = ThreadLocal.withInitial(() -> new Bill());
 
-    @Override
     public void doing1() {
         final Bill bill = billLocal;
         //final Bill bill = billThreadLocal.get();
@@ -23,7 +21,6 @@ public class Example4 implements Example {
         bill.setName("f");
     }
 
-    @Override
     public void doing2() {
         final Bill bill = billLocal;
         //final Bill bill = billThreadLocal.get();

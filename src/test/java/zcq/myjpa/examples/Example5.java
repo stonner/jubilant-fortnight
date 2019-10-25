@@ -1,8 +1,7 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 
 import org.junit.Test;
 import zcq.myjpa.entity.Product;
-import zcq.myjpa.examples.Example;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +11,12 @@ import java.util.List;
  * @version 1.0
  * @since 2019/08/27
  */
-public class Example5 implements Example {
+public class Example5 {
 
     private String pname = "789";
 
     private ThreadLocal<Product> productThreadLocal = ThreadLocal.withInitial(() -> new Product(pname));
 
-    @Override
     public void doing1() {
         final Product product = productThreadLocal.get();
         if (!"f".equals(product.getName())) {
@@ -27,7 +25,6 @@ public class Example5 implements Example {
         product.setName("f");
     }
 
-    @Override
     public void doing2() {
         final Product product = productThreadLocal.get();
         if (!"s".equals(product.getName())) {

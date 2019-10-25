@@ -1,11 +1,7 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 
 import com.google.common.collect.Maps;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.springframework.util.CollectionUtils;
-import zcq.myjpa.examples.Example;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -13,12 +9,11 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2019/10/10
  */
-public class ExampleB implements Example {
+public class ExampleB {
     public static void main(String[] args) {
         new ExampleB().doing2();
     }
 
-    @Override
     public void doing1() {
         final HashMap<Integer, Integer> map = Maps.newHashMap();
 
@@ -45,7 +40,6 @@ public class ExampleB implements Example {
 
     }
 
-    @Override
     public void doing2() {
         byte b1 = (byte) 17;
         System.out.println(b1);

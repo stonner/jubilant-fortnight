@@ -70,7 +70,7 @@ public class LoUtils {
     /**
      * 解析主密钥-key
      */
-    private static final String MAIN_KEY = "97531BDF86420ACEFEDCBA0123456789";
+//    private static final String MAIN_KEY = "97531BDF86420ACEFEDCBA0123456789";
 
     /**
      * 转2进制
@@ -420,8 +420,9 @@ public class LoUtils {
         String sTemp;
         for (int i = 0; i < bArray.length; i++) {
             sTemp = Integer.toHexString(0xFF & bArray[i]);
-            if (sTemp.length() < 2)
+            if (sTemp.length() < 2) {
                 sb.append(0);
+            }
             sb.append(sTemp.toUpperCase());
         }
         return sb.toString();
@@ -530,7 +531,8 @@ public class LoUtils {
         String makData = mak.substring(16, 32);  //需要被解析的密钥16个0
         String checkvalue = mak.substring(32, 40);//检查值
         //解密主密钥
-        String mainKey = bin2HexStr(desDecrypt(main, MAIN_KEY));
+//        String mainKey = bin2HexStr(desDecrypt(main, MAIN_KEY));
+        String mainKey = main;
         //解密工作密钥
         byte[] byteMakKey = desDecrypt(makKey, mainKey);
         //单倍加密8字节0
@@ -560,7 +562,8 @@ public class LoUtils {
             return "";
         }
         //解密主密钥
-        String mainKey = bin2HexStr(desDecrypt(main, MAIN_KEY));
+//        String mainKey = bin2HexStr(desDecrypt(main, MAIN_KEY));
+        String mainKey = main;
 
         String tdkKey = tdk.substring(0, 32);    //pink密钥密文
         String checkvalue = tdk.substring(32, 40);//检查值
@@ -577,22 +580,6 @@ public class LoUtils {
         }
         log.error("工作密钥tdk验证失败");
         return "";
-    }
-
-    public static void main1(String[] args) {
-        //解密主密钥
-        byte[] srcBytes = desDecrypt("5FBBB9CD4720CE060BE368319FC81D02", "97531BDF86420ACEFEDCBA0123456789");
-        String maink = bin2HexStr(srcBytes);
-        System.out.println(maink);
-        //解密工作密钥
-        srcBytes = desDecrypt("AA2E19056BF12B06F551422714EDC200", maink);
-        String pink = bin2HexStr(srcBytes);
-        //对8个0做双倍加密
-        srcBytes = desEncrypt("0000000000000000",pink);
-        String cleckval = bin2HexStr(srcBytes);
-        srcBytes = desEncrypt("06111111FFFFFFFF", pink);
-        String passwd = bin2HexStr(srcBytes);
-        System.out.println(passwd);
     }
 
     /**
@@ -617,6 +604,59 @@ public class LoUtils {
             return track.substring(0,37);
         }
         return track;
+    }
+
+    /**
+     * 加密pin
+     * @param password
+     * @param bankCardNo
+     * @param mainKey
+     * @param encryptedPinKey
+     * @return
+     */
+    public static String encryptPin(String password, String bankCardNo, String mainKey, String encryptedPinKey) {
+        String pin = "06"+password+"FFFFFFFF";
+        final String pan = getPan(bankCardNo);
+        //异或
+        final byte[] bytes = hexStr2Bytes(pin);
+        final byte[] bytes1 = hexStr2Bytes(pan);
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] ^= bytes1[i];
+        }
+        final String str = bin2HexStr(bytes);
+        //pinKey明文
+        final String pinKey = tdkDecrypt(mainKey, encryptedPinKey);
+        return bin2HexStr(desEncrypt(str, pinKey));
+    }
+
+    /**
+     * 解密pin
+     * @param encryptedPassword
+     * @param bankCardNo
+     * @param mainKey
+     * @param encryptedPinKey
+     * @return
+     */
+    public static String decryptPin(String encryptedPassword, String bankCardNo, String mainKey, String encryptedPinKey) {
+        final String pinKey = tdkDecrypt(mainKey, encryptedPinKey);
+        byte[] bytes = desDecrypt(encryptedPassword, pinKey);
+        final String pan = getPan(bankCardNo);
+        //异或
+        final byte[] bytes1 = hexStr2Bytes(pan);
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] ^= bytes1[i];
+        }
+        final String str = bin2HexStr(bytes);
+        return str.substring(2,8);
+    }
+
+    /**
+     * 卡号从右数第二位开始取12位，前补0至16位
+     * @param bankCardNo
+     * @return
+     */
+    public static String getPan(String bankCardNo) {
+        return "0000" + bankCardNo.substring(bankCardNo.length() - 13, bankCardNo.length() - 1);
     }
 
     /**

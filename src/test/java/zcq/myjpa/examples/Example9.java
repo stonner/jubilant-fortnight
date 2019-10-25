@@ -1,4 +1,4 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 /**
  * ***************************************************************************
  * Copyright (C) 2017 ShenZhen ComTop Information Technology Co.,Ltd
@@ -14,7 +14,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
-import zcq.myjpa.examples.Example;
 import zcq.myjpa.utils.HttpClientUtils;
 
 import java.io.File;
@@ -26,7 +25,7 @@ import java.io.IOException;
  * @version 1.0
  * @since 2019/09/20
  */
-public class Example9 implements Example {
+public class Example9 {
     public static void main(String[] args) {
         try {
             new Example9().doing1();
@@ -35,7 +34,6 @@ public class Example9 implements Example {
         }
     }
 
-    @Override
     public void doing1() throws IOException {
         File file = new File("D:\\workNotes\\water\\waterBank\\0919.xls");
         NPOIFSFileSystem fs = new NPOIFSFileSystem(file);
@@ -71,7 +69,6 @@ public class Example9 implements Example {
 
     }
 
-    @Override
     public void doing2() {
         //EXECUTOR_POOL.execute(()-> {});
         //EXECUTOR_POOL.submit();

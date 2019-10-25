@@ -1,10 +1,9 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zcq.myjpa.vo.BankMessageVo;
-import zcq.myjpa.examples.Example;
 import zcq.myjpa.utils.FormatUtils;
 import zcq.myjpa.utils.LoUtils;
 
@@ -14,14 +13,13 @@ import zcq.myjpa.utils.LoUtils;
  * @version 1.0
  * @since 2019/09/05
  */
-public class Example7 implements Example {
+public class Example7 {
     private final static Logger logger = LoggerFactory.getLogger(Example7.class);
 
     public static void main(String[] args) {
         new Example7().doing1();
     }
 
-    @Override
     public void doing1() {
         final String BANK_URL = "https://testpos.ebankunion.com:8443/nserver/service_pos";
         final String BANK_REQUEST_METHOD = "POST";
@@ -53,7 +51,6 @@ public class Example7 implements Example {
         System.out.println("报文内容"+resMessage.substring(46));
     }
 
-    @Override
     public void doing2() {
         final String s = FormatUtils.formatToJson("{\"bankHead\":\"603200310000\",\"bitMapVo\":{\"bitMap\":\"0111000000111100000001101100000000100010110000001001101000010010\",\"bitMapData\":{2:\"6212262010030432766\",3:\"000000\",35:\"6212262010030432766D7FB1E4144D1C80CE2\",4:\"000000119445\",39:\"09\",41:\"55555552\",42:\"000000000000361\",11:\"000307\",12:\"152254\",13:\"1010\",14:\"2511\",49:\"156\",52:\"E7D25E8C42B631EA\",53:\"2610000000000000\",22:\"051D\",23:\"0001\",55:\"9F26088E0693D8F0C8F7A29F2701809F101307010103A0A000010A010000000000E066990E9F3704AC568C399F36020049950580000400009A031909189C01009F02060000000000005F2A02015682027C009F1A0201569F03060000000000009F3303E048209F74009F34030203009F3501149F1E0841424344313233348408A0000003330101019F090200309F410400000006910071007200DF31009F6300\",25:\"00\",26:\"06\",60:\"22000000000600\",63:\"fail\"}},\"headerMapVo\":{\"businessCode\":\"000361\",\"code\":\"A23F4C27936E32673490790D2D0673CE\",\"length\":194,\"num\":\"e7395eec74574b76b63d2ffffbfaa0d8\",\"orderInfo\":\"{\\\"teacct\\\":\\\"1242080235\\\"}\",\"serialNum\":\"100\",\"type\":\"FD\",\"version\":\"100001\"},\"length\":796,\"msgtye\":\"0210\",\"tpdu\":\"6000000010\"}");
         System.out.println(s);

@@ -1,10 +1,9 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import zcq.myjpa.entity.Bill;
-import zcq.myjpa.examples.Example;
 import zcq.myjpa.vo.ReceiptStageVo;
 
 import java.io.UnsupportedEncodingException;
@@ -19,10 +18,9 @@ import java.util.Map;
  * @version 1.0
  * @since 2019/09/02
  */
-public class Example6 implements Example {
+public class Example6 {
     private static final String hexStr = "0123456789ABCDEF";
 
-    @Override
     @Test
     public void doing1() {
         final String s = "{\"teacct\":\"0944000047449996\"}";
@@ -53,7 +51,6 @@ public class Example6 implements Example {
         }
     }
 
-    @Override
     @Test
     public void doing2() {
 

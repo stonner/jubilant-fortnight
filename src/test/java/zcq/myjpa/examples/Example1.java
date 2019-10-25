@@ -1,6 +1,4 @@
-package zcq.myjpa.examples.impl;
-
-import zcq.myjpa.examples.Example;
+package zcq.myjpa.examples;
 
 import java.util.Random;
 
@@ -10,7 +8,6 @@ import java.util.Random;
  * @since 2019/08/13
  */
 public class Example1 implements Example {
-    @Override
     public void doing1() {
         Random rd = new Random();
         String code = rd.nextInt(10000)+"";
@@ -22,7 +19,6 @@ public class Example1 implements Example {
 
     }
 
-    @Override
     public void doing2() {
         Random rd = new Random();
         String code = "";

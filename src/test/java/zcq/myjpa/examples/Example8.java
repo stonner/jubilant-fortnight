@@ -1,4 +1,4 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 /**
  * ***************************************************************************
  * Copyright (C) 2017 ShenZhen ComTop Information Technology Co.,Ltd
@@ -13,7 +13,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
-import zcq.myjpa.examples.Example;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +26,7 @@ import java.nio.file.StandardCopyOption;
  * @version 1.0
  * @since 2019/09/19
  */
-public class Example8 implements Example {
+public class Example8 {
 
 
     public static void main(String[] args) {
@@ -38,7 +37,6 @@ public class Example8 implements Example {
         }
 
     }
-    @Override
     public void doing1() throws Exception {
 //        String filePath = "C:\\Users\\zhengchuqin\\Desktop\\0919.xls";
 //        String tmpFilePath = "C:\\Users\\zhengchuqin\\Desktop\\~$0919.xls";
@@ -55,7 +53,6 @@ public class Example8 implements Example {
         fs.close();
     }
 
-    @Override
     public void doing2() throws IOException, InvalidFormatException {
 
 

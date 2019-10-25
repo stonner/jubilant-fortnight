@@ -1,13 +1,12 @@
 package zcq.myjpa;
 
 import zcq.myjpa.examples.Example;
-import zcq.myjpa.examples.impl.Example1;
+import zcq.myjpa.examples.Example1;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author zhengchuqin
@@ -23,7 +22,7 @@ public class TestMain {
         //compareRunningTime(new Example1(),new int[]{1,2},(int)Math.pow(10,5));
     }
 
-    public static void compareRunningTime(Example example,int[] methodNos, int cycleNum) {
+    public static void compareRunningTime(Example example, int[] methodNos, int cycleNum) {
         long[] times = new long[methodNos.length];
         for (int i = 0; i < times.length; i++) {
             times[i] = getRunningTime(example, i+1, cycleNum);

@@ -1,14 +1,10 @@
 package zcq.myjpa;
 
 import zcq.myjpa.examples.Example;
-import zcq.myjpa.examples.impl.Example1;
-import zcq.myjpa.examples.impl.Example4;
-import zcq.myjpa.examples.impl.Example5;
+import zcq.myjpa.examples.Example4;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author zhengchuqin

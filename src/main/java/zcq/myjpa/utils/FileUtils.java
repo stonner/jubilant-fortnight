@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -97,6 +99,22 @@ public class FileUtils {
         return new BASE64Decoder().decodeBuffer(base64Content);
     }
 
+    public static String imageToBase64(BufferedImage img) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpeg",baos);
+        final byte[] bytes = baos.toByteArray();
+        BASE64Encoder encoder = new BASE64Encoder();
+        String base64 =  encoder.encodeBuffer(bytes).trim();
+        return base64;
+    }
+
+    public static BufferedImage base64ToImage(String img) throws IOException {
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] b = decoder.decodeBuffer(img);
+        InputStream inputStream = new ByteArrayInputStream(b);
+        return ImageIO.read(inputStream);
+    }
+
     /**
      * 转图片
      *
@@ -148,6 +166,33 @@ public class FileUtils {
         }
         g2d.dispose();
         return concatImage;
+    }
+
+    public static String handleDpiRange(String base64Src, int minSize, int maxSize, int width, int height) {
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            byte[] b = decoder.decodeBuffer(base64Src);
+            InputStream inputStream = new ByteArrayInputStream(b);
+            int available = inputStream.available();
+            if (available <= 0) {
+                return null;
+            }
+            if (minSize < available && available < maxSize) {
+                return base64Src;
+            }
+            BufferedImage img = ImageIO.read(inputStream);
+            BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            float softenFactor = 0.01f;
+            float[] softenArray = {0, softenFactor, 0, softenFactor, 1 - softenFactor * 4, softenFactor, 0, softenFactor, 0};
+            Kernel kernel = new Kernel(3, 3, softenArray);
+            ConvolveOp convolveOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
+            convolveOp.filter(tag, null);
+            tag.getGraphics().drawImage(img, 0, 0, width, height, null);
+            return imageToBase64(tag);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

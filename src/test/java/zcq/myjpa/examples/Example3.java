@@ -1,4 +1,4 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 /**
  * ***************************************************************************
  * Copyright (C) 2017 ShenZhen ComTop Information Technology Co.,Ltd
@@ -9,8 +9,6 @@ package zcq.myjpa.examples.impl;
  */
 
 import org.springframework.util.LinkedMultiValueMap;
-import zcq.myjpa.examples.Example;
-import zcq.myjpa.utils.FileUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +21,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2019/08/16
  */
-public class Example3 implements Example {
+public class Example3 {
 
     private static final Map<String,String> CUSTOMERCODE_COMPANY_MAP = new HashMap<String,String>(){{
         put("11", "原特区内");
@@ -41,7 +39,6 @@ public class Example3 implements Example {
         new Example3().doing4();
     }
 
-    @Override
     public void doing1() {
         final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss");
         try {
@@ -52,7 +49,6 @@ public class Example3 implements Example {
         }
     }
 
-    @Override
     public void doing2() {
         LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add(null,"a");

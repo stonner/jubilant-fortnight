@@ -1,4 +1,4 @@
-package zcq.myjpa.examples.impl;
+package zcq.myjpa.examples;
 /**
  * ***************************************************************************
  * Copyright (C) 2017 ShenZhen ComTop Information Technology Co.,Ltd
@@ -7,8 +7,6 @@ package zcq.myjpa.examples.impl;
  * 复制、修改或发布本软件.
  * ****************************************************************************
  */
-
-import zcq.myjpa.examples.Example;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -19,13 +17,12 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2019/08/15
  */
-public class Example2 implements Example {
+public class Example2 {
 
     public static void main(String[] args) {
         new Example2().doing1();
     }
 
-    @Override
     public void doing1() {
         /*final String format = String.format("sdgsg%s", 2, 3);
         System.out.println(format);*/
@@ -43,7 +40,6 @@ public class Example2 implements Example {
         System.out.println(sb);
     }
 
-    @Override
     public void doing2() {
         final HashMap<String, Object> stringObjectHashMap = new HashMap<>();
         stringObjectHashMap.put("1", new int[2]);
