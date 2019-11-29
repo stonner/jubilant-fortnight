@@ -5,6 +5,7 @@ import zcq.myjpa.utils.LoUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 public class ExampleC {
 
@@ -31,5 +32,16 @@ public class ExampleC {
         System.out.println(encryptPin);
         String decryptPin = LoUtils.decryptPin(encryptPin, bankCardNo, mainKey, encryptedPinkey);
         System.out.println(decryptPin);
+    }
+
+    @Test
+    public void main2() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(null, "2");
+        map.put("1",null);
+        map.put(null, null);
+        map.forEach((k,v)->{
+            System.out.println("\nk : "+k+"\nv : "+v);
+        });
     }
 }
